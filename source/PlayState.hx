@@ -8,6 +8,8 @@ class PlayState extends FlxState
 	{
 		super.create();
 
+		Music.playMusic();
+
 		add(new Player());
 		add(new Ground());
 	}
