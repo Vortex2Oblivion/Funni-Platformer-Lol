@@ -1,11 +1,10 @@
 package;
 
 import flixel.FlxG;
-import flixel.FlxState;
 
-class Music extends FlxState
+class Music
 {
-	override public function create()
+	public static function playMusic()
 	{
 		FlxG.sound.playMusic(AssetPaths.Yes__ogg);
 	}
