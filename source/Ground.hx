@@ -2,26 +2,21 @@ package;
 
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.FlxState;
 import flixel.system.FlxAssets;
 
-class Ground extends FlxState
+class Ground extends FlxSprite
 {
-	var ground:FlxSprite;
-	var scaleFactor = 0.1;
-
-	override public function create()
+	override public function new()
 	{
-		// Creates The Sprite
-		super.create();
-		ground = new FlxSprite(AssetPaths.ground__png);
+		super(0, 0);
+
+		loadGraphic(AssetPaths.ground__png);
 		// Pixel Perfect rendering
-		ground.pixelPerfectRender = true;
+		pixelPerfectRender = true;
 		// Pixel Perfect positioning
-		ground.pixelPerfectPosition = true;
-		ground.x = FlxG.width / 2 - ground.width / 2;
-		ground.y = 300;
-		ground.pixelPerfectRender = true;
-		add(ground);
+		pixelPerfectPosition = true;
+		x = FlxG.width / 2 - width / 2;
+		y = 300;
+		pixelPerfectRender = true;
 	}
 }
