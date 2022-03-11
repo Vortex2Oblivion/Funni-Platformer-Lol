@@ -43,7 +43,6 @@ class Player extends FlxSprite
 		if (FlxG.mouse.pressed)
 			setPosition(FlxG.mouse.getPosition().x - width / 2, FlxG.mouse.getPosition().y - height / 2);
 
-		// This does something. I just don't know what.
 		if (FlxG.mouse.justReleasedRight)
 		{
 			y = FlxG.height / 2 - height / 2;
