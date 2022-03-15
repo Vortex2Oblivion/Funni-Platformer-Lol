@@ -11,7 +11,7 @@ You can use the library install scripts in the building folder if you want.
 
 Other installations you'd need is the additional libraries, a fully updated list will be in Project.xml in the project root. Currently, these are all of the things you need to install:
 
-flixelw
+flixel
 
 Compiling game
 Once you have all those installed, it's pretty easy to compile the game. You just need to run 'lime test html5 -debug' in the root of the project to build and run the HTML5 version.

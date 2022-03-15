@@ -1,16 +1,22 @@
 package;
 
 import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.FlxSprite;
 import flixel.FlxSubState;
-import openfl.display.Player;
 
 class GravitySubState extends FlxSubState
 {
-	override public function
+	var Player:FlxSprite = PlayState.Player;
+
+	override public function new()
 	{
+		super();
+
 		Player.acceleration.y = 600;
 		Player.maxVelocity.y = 200;
 	}
+
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
