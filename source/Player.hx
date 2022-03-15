@@ -3,6 +3,9 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.system.FlxAssets;
+import flixel.text.FlxText;
+import flixel.util.FlxColor;
+import openfl.display.Sprite;
 
 class Player extends FlxSprite
 {
