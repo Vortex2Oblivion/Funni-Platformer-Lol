@@ -5,7 +5,7 @@ import flixel.FlxSprite;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
 
-class GravitySubState extends FlxSubState
+class GravitySubState extends FlxSprite
 {
 	var Player:FlxSprite = PlayState.Player;
 

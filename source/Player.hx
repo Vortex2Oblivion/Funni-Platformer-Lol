@@ -13,7 +13,6 @@ class Player extends FlxSprite
 	{
 		// Creates The Sprite
 		super(0, 0);
-
 		loadGraphic(AssetPaths.apple__png);
 		// Pixel Perfect rendering
 		pixelPerfectRender = true;
