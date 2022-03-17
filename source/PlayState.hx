@@ -4,7 +4,6 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.util.FlxColor;
-import js.lib.intl.Collator.Collation;
 
 class PlayState extends FlxState
 {
@@ -55,7 +54,7 @@ class PlayState extends FlxState
 		{
 			super.update(elapsed);
 
-			FlxG.collide(Player, Ground, Collation);
+			FlxG.collide(Player, Ground);
 
 			if (Player.x <= 0)
 				Player.velocity.x *= -1;
