@@ -3,7 +3,6 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
-import flixel.util.FlxColor;
 
 class PlayState extends FlxState
 {
@@ -16,8 +15,12 @@ class PlayState extends FlxState
 		super.create();
 		Player = new FlxSprite("assets/holyshititshaxe.png");
 		Player.x = FlxG.width / 2 - Player.width / 2;
-		Player.acceleration.y = 0;
+		Player.acceleration.y = 5;
 		Player.maxVelocity.y = 200;
+		// Pixel Perfect rendering
+		Player.pixelPerfectRender = true;
+		// Pixel Perfect positioning
+		Player.pixelPerfectPosition = true;
 
 		Ground = new FlxSprite(AssetPaths.ground__png);
 		// Pixel Perfect rendering
@@ -56,16 +59,16 @@ class PlayState extends FlxState
 
 			FlxG.collide(Player, Ground);
 
-			if (Player.x <= 0)
-				Player.velocity.x *= -1;
-			if (Ground.x >= FlxG.width - Ground.width)
-				Ground.velocity.x *= -1;
+			if (Player.y <= 0)
+				Player.velocity.y *= 0;
+			if (Ground.y >= FlxG.width - Ground.width)
+				Ground.velocity.y *= 0;
 		}
 
 		function collision(Player:FlxSprite, Ground:FlxSprite)
 		{
-			Player.velocity.x = -150;
-			Ground.velocity.x = 150;
+			Player.velocity.y = 0;
+			Ground.velocity.y = 0;
 		}
 
 		// Keyboard Movement
@@ -75,24 +78,6 @@ class PlayState extends FlxState
 			Player.x++;
 		if (FlxG.keys.pressed.W || FlxG.keys.pressed.UP)
 			Player.y--;
-		if (FlxG.keys.pressed.S || FlxG.keys.pressed.DOWN)
-			Player.y++;
-		if (FlxG.keys.justPressed.SPACE)
-		{
-			Player.y = FlxG.height / 2 - Player.height / 2;
-			Player.x = FlxG.width / 2 - Player.width / 2;
-		}
-
-		// Mouse Movement
-		if (FlxG.mouse.pressed)
-			Player.setPosition(FlxG.mouse.getPosition().x - Player.width / 2, FlxG.mouse.getPosition().y - Player.height / 2);
-
-		if (FlxG.mouse.justReleasedRight)
-		{
-			Player.y = FlxG.height / 2 - Player.height / 2;
-			Player.x = FlxG.width / 2 - Player.width / 2;
-			Player.scale.set(1, 1);
-		}
 
 		if (FlxG.mouse.wheel != 0)
 			Player.scale.add(FlxG.mouse.wheel * 0.1, FlxG.mouse.wheel * 0.1);
