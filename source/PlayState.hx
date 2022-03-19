@@ -1,8 +1,10 @@
 package;
 
+import Discord;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import lime.app.Application;
 
 class PlayState extends FlxState
 {
@@ -31,6 +33,13 @@ class PlayState extends FlxState
 		Music.playMusic();
 		add(Player);
 		add(Ground);
+
+		DiscordClient.initialize();
+
+		Application.current.onExit.add(function(exitCode)
+		{
+			DiscordClient.shutdown();
+		}, false, 100);
 	}
 
 	override public function update(elapsed:Float)
