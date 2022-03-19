@@ -1,4 +1,4 @@
-package utilities;
+package;
 
 #if discord_rpc
 import Sys.sleep;

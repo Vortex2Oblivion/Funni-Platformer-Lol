@@ -1,5 +1,6 @@
 package;
 
+import Discord;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
@@ -31,6 +32,8 @@ class PlayState extends FlxState
 		Music.playMusic();
 		add(Player);
 		add(Ground);
+
+		new DiscordClient();
 	}
 
 	override public function update(elapsed:Float)
