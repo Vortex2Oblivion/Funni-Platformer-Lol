@@ -7,30 +7,27 @@ import flixel.FlxState;
 class PlayState extends FlxState
 {
 	var scaleFactor = 0.1;
-	var Player:FlxSprite;
-	var Ground:FlxSprite;
+	var Player:FlxSprite; // Defines the player
+	var Ground:FlxSprite; // Defines the ground
 
 	override function create()
 	{
 		super.create();
-		Player = new FlxSprite("assets/holyshititshaxe.png");
-		Player.x = FlxG.width / 2 - Player.width / 2;
-		Player.acceleration.y = 5;
-		Player.maxVelocity.y = 200;
-		// Pixel Perfect rendering
-		Player.pixelPerfectRender = true;
-		// Pixel Perfect positioning
-		Player.pixelPerfectPosition = true;
+		Player = new FlxSprite("assets/holyshititshaxe.png"); // Creates the player's sprite.
+		Player.x = FlxG.width / 2 - Player.width / 2; // Sets the player's x position. Makes it based off the player's sprite or something like that to make it always centered.
+		Player.acceleration.y = 1; // Sets the player's acceleration.
+		Player.velocity.y = 150; /// Sets the player's velocity.
+		Player.maxVelocity.y = 200; // Sets the player's max velocity.
+		Player.pixelPerfectRender = true; // Pixel Perfect rendering.
+		Player.pixelPerfectPosition = true; // Pixel Perfect positioning.
 
 		Ground = new FlxSprite(AssetPaths.ground__png);
-		// Pixel Perfect rendering
-		Ground.pixelPerfectRender = true;
-		// Pixel Perfect positioning
-		Ground.pixelPerfectPosition = true;
-		Ground.x = FlxG.width / 2 - FlxG.width / 2;
-		Ground.y = 300;
+		Ground.pixelPerfectRender = true; // Pixel Perfect rendering.
+		Ground.pixelPerfectPosition = true; // Pixel Perfect positioning.
+		Ground.x = FlxG.width / 2 - FlxG.width / 2; // Sets the ground's x postion. Makes it based off the player's sprite or something like that to make it always centered.
+		Ground.y = 300; // Sets the ground's y postion.
 
-		Player.velocity.y = 150;
+		// Pretty self-expanitory, you can figure it out
 		Music.playMusic();
 		add(Player);
 		add(Ground);
@@ -55,7 +52,7 @@ class PlayState extends FlxState
 		}
 
 		{
-			super.update(elapsed);
+			super.update(elapsed); // DON'T DELETE THIS. It breaks the really buggy gravity code for some reason.
 
 			FlxG.collide(Player, Ground);
 
@@ -76,7 +73,7 @@ class PlayState extends FlxState
 			Player.x--;
 		if (FlxG.keys.pressed.D || FlxG.keys.pressed.RIGHT)
 			Player.x++;
-		if (FlxG.keys.pressed.W || FlxG.keys.pressed.UP)
+		if (FlxG.keys.justReleased.W || FlxG.keys.pressed.UP)
 			Player.y--;
 
 		if (FlxG.mouse.wheel != 0)
