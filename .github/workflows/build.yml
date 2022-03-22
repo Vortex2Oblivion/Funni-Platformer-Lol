@@ -55,46 +55,6 @@ jobs:
           name: linux
           path: export/linux/bin
 
-  web:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      - uses: actions/checkout@v2
-
-      # Haxe setup so we don't have to do that :)
-      - uses: krdlab/setup-haxe@master
-        with:
-          haxe-version: 4.2.4
-
-      # Installing shit
-      - name: Setup Haxelib
-        run: |
-          haxelib setup ~/haxelib
-
-      - name: Install HaxeFlixel
-        run: |
-          haxelib install hxcpp > /dev/null
-          haxelib install lime
-          haxelib install openfl
-          haxelib install flixel
-          haxelib git discord_rpc https://github.com/Aidan63/linc_discord-rpc
-          haxelib --never install flixel
-          haxelib run lime setup flixel
-          haxelib run lime setup
-          haxelib list
-      
-      - name: Compile
-        run: |
-          haxelib run lime build Project.xml html5
-
-      - name: Publish Artifact
-        uses: actions/upload-artifact@v2.2.4
-        with:
-          name: html
-          path: export/html5/bin
-
   windows:
     # The type of runner that the job will run on
     runs-on: windows-latest
