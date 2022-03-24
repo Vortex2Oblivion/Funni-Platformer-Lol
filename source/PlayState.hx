@@ -4,22 +4,37 @@ import Discord;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.text.FlxText;
+import flixel.util.FlxAxes;
+import flixel.util.FlxColor;
 import lime.app.Application;
+
 
 class PlayState extends FlxState
 {
 	var scaleFactor = 0.1;
 	var Player:FlxSprite; // Defines the player
+	var enemy:FlxSprite; // Defines the enemy
 	var Ground:FlxSprite; // Defines the ground
+	var healthText:FlxText; // Defines the text
 
 	override function create()
 	{
 		super.create();
-		Player = new FlxSprite("assets/holyshititshaxe.png"); // Creates the player's sprite.
+		Player = new FlxSprite(AssetPaths.holyshititshaxe__png); // Creates the player's sprite.
 		Player.x = FlxG.width / 2 - Player.width / 2; // Sets the player's x position. Makes it based off the player's sprite or something like that to make it always centered.
 		Player.acceleration.y = 1; // Sets the player's acceleration.
-		Player.velocity.y = 150; /// Sets the player's velocity.
+		Player.velocity.y = 150; // Sets the player's velocity.
 		Player.maxVelocity.y = 200; // Sets the player's max velocity.
+		Player.pixelPerfectRender = true; // Pixel Perfect rendering.
+		Player.pixelPerfectPosition = true; // Pixel Perfect positioning.
+		Player.health = 10;
+
+		enemy = new FlxSprite(AssetPaths.godot__png);
+		enemy.y = FlxG.width / 2 - enemy.width / 2;
+		Player.acceleration.y = 1; 
+		Player.velocity.y = 150; 
+		Player.maxVelocity.y = 200;
 		Player.pixelPerfectRender = true; // Pixel Perfect rendering.
 		Player.pixelPerfectPosition = true; // Pixel Perfect positioning.
 
@@ -28,11 +43,28 @@ class PlayState extends FlxState
 		Ground.pixelPerfectPosition = true; // Pixel Perfect positioning.
 		Ground.x = FlxG.width / 2 - FlxG.width / 2; // Sets the ground's x postion. Makes it based off the player's sprite or something like that to make it always centered.
 		Ground.y = 300; // Sets the ground's y postion.
+		Ground.maxVelocity.y = 0; // Sets the ground's max velocity.
+
+		healthText = new FlxText();
+		healthText.size = 16;
+		healthText.text = "Health: 5";
+		healthText.autoSize = false;
+		healthText.wordWrap = false;
+		healthText.fieldWidth = FlxG.width;
+		healthText.color = FlxColor.WHITE;
+		healthText.setBorderStyle(FlxTextBorderStyle.SHADOW, FlxColor.BLACK, 2, 1);
+		healthText.alignment = FlxTextAlign.CENTER;
+		healthText.screenCenter(FlxAxes.X);
+		healthText.y = 8;
+
 
 		// Pretty self-expanitory, you can figure it out
 		Music.playMusic();
 		add(Player);
 		add(Ground);
+		add(enemy);
+		add(healthText);
+
 
 		DiscordClient.initialize();
 
@@ -61,7 +93,6 @@ class PlayState extends FlxState
 		}
 
 		{
-			super.update(elapsed); // DON'T DELETE THIS. It breaks the really buggy gravity code for some reason.
 
 			FlxG.collide(Player, Ground);
 
@@ -87,5 +118,21 @@ class PlayState extends FlxState
 
 		if (FlxG.mouse.wheel != 0)
 			Player.scale.add(FlxG.mouse.wheel * 0.1, FlxG.mouse.wheel * 0.1);
+
+		// Player Health and Damage
+		if (Player.health < -1)
+		{
+			Player.health = 10;
+			Player.revive();
+		}
+		else
+			Player.hurt(elapsed);
+
+		if (Player.health > 0)
+			healthText.text = "Health: " + Std.string(Math.ceil(Player.health));
+		else
+			healthText.text = "DEAD!";
+
+		super.update(elapsed);
 	}
 }
