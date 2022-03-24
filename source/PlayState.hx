@@ -23,7 +23,7 @@ class PlayState extends FlxState
 		super.create();
 		Player = new FlxSprite(AssetPaths.holyshititshaxe__png); // Creates the player's sprite.
 		Player.x = FlxG.width / 2 - Player.width / 2; // Sets the player's x position. Makes it based off the player's sprite or something like that to make it always centered.
-		Player.acceleration.y = 1; // Sets the player's acceleration.
+		Player.acceleration.y = 75; // Sets the player's acceleration.
 		Player.velocity.y = 150; // Sets the player's velocity.
 		Player.maxVelocity.y = 200; // Sets the player's max velocity.
 		Player.pixelPerfectRender = true; // Pixel Perfect rendering.
@@ -31,12 +31,9 @@ class PlayState extends FlxState
 		Player.health = 10;
 
 		enemy = new FlxSprite(AssetPaths.godot__png);
-		enemy.y = FlxG.width / 2 - enemy.width / 2;
-		Player.acceleration.y = 1; 
-		Player.velocity.y = 150; 
-		Player.maxVelocity.y = 200;
-		Player.pixelPerfectRender = true; // Pixel Perfect rendering.
-		Player.pixelPerfectPosition = true; // Pixel Perfect positioning.
+		enemy.y = 250;
+		enemy.pixelPerfectRender = true; // Pixel Perfect rendering.
+		enemy.pixelPerfectPosition = true; // Pixel Perfect positioning.
 
 		Ground = new FlxSprite(AssetPaths.ground__png);
 		Ground.pixelPerfectRender = true; // Pixel Perfect rendering.
@@ -113,7 +110,7 @@ class PlayState extends FlxState
 			Player.x--;
 		if (FlxG.keys.pressed.D || FlxG.keys.pressed.RIGHT)
 			Player.x++;
-		if (FlxG.keys.justReleased.W || FlxG.keys.pressed.UP)
+		if (FlxG.keys.pressed.W || FlxG.keys.pressed.UP)
 			Player.y--;
 
 		if (FlxG.mouse.wheel != 0)
@@ -125,14 +122,14 @@ class PlayState extends FlxState
 			Player.health = 10;
 			Player.revive();
 		}
-		else
-			Player.hurt(elapsed);
+
 
 		if (Player.health > 0)
 			healthText.text = "Health: " + Std.string(Math.ceil(Player.health));
 		else
 			healthText.text = "DEAD!";
 
-		super.update(elapsed);
+		if (FlxG.overlap(Player, enemy))
+			Player.health -= 1;
 	}
 }
