@@ -21,6 +21,7 @@ class PlayState extends FlxState
 	override function create()
 	{
 		super.create();
+		// Player shit
 		Player = new FlxSprite(AssetPaths.holyshititshaxe__png); // Creates the player's sprite.
 		Player.x = FlxG.width / 2 - Player.width / 2; // Sets the player's x position. Makes it based off the player's sprite or something like that to make it always centered.
 		Player.acceleration.y = 75; // Sets the player's acceleration.
@@ -29,19 +30,20 @@ class PlayState extends FlxState
 		Player.pixelPerfectRender = true; // Pixel Perfect rendering.
 		Player.pixelPerfectPosition = true; // Pixel Perfect positioning.
 		Player.health = 10;
-
+		// Enemy shit
 		enemy = new FlxSprite(AssetPaths.godot__png);
-		enemy.y = 250;
+		enemy.y = 235;
 		enemy.pixelPerfectRender = true; // Pixel Perfect rendering.
 		enemy.pixelPerfectPosition = true; // Pixel Perfect positioning.
-
+		// Ground shit
 		Ground = new FlxSprite(AssetPaths.ground__png);
 		Ground.pixelPerfectRender = true; // Pixel Perfect rendering.
 		Ground.pixelPerfectPosition = true; // Pixel Perfect positioning.
 		Ground.x = FlxG.width / 2 - FlxG.width / 2; // Sets the ground's x postion. Makes it based off the player's sprite or something like that to make it always centered.
-		Ground.y = 300; // Sets the ground's y postion.
 		Ground.maxVelocity.y = 0; // Sets the ground's max velocity.
-
+		Ground.velocity.y = 0;
+		Ground.acceleration.y = 0;
+		// HealthText shit
 		healthText = new FlxText();
 		healthText.size = 16;
 		healthText.text = "Health: 5";
@@ -74,6 +76,7 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
+		Ground.y = 300; // Sets the ground's y postion.
 
 		// Gravity Shit
 		if (Player.velocity.y > 0 && Player.y >= FlxG.height + 8)
