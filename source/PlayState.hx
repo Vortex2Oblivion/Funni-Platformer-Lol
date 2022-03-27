@@ -7,7 +7,10 @@ import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
 import lime.app.Application;
+
+
 
 
 class PlayState extends FlxState
@@ -17,6 +20,8 @@ class PlayState extends FlxState
 	var enemy:FlxSprite; // Defines the enemy
 	var Ground:FlxSprite; // Defines the ground
 	var healthText:FlxText; // Defines the text
+	var timer:FlxTimer;
+
 
 	override function create()
 	{
@@ -55,6 +60,8 @@ class PlayState extends FlxState
 		healthText.alignment = FlxTextAlign.CENTER;
 		healthText.screenCenter(FlxAxes.X);
 		healthText.y = 8;
+		var timer:FlxTimer = new FlxTimer();
+
 
 
 		// Pretty self-expanitory, you can figure it out
@@ -71,6 +78,10 @@ class PlayState extends FlxState
 		{
 			DiscordClient.shutdown();
 		}, false, 100);
+	}
+	private function iFrames(_):Void
+	{
+		Player.health -= 1;
 	}
 
 	override public function update(elapsed:Float)
@@ -125,6 +136,7 @@ class PlayState extends FlxState
 			Player.health = 10;
 			Player.revive();
 		}
+		
 
 
 		if (Player.health > 0)
@@ -133,6 +145,6 @@ class PlayState extends FlxState
 			healthText.text = "DEAD!";
 
 		if (FlxG.overlap(Player, enemy))
-			Player.health -= 1;
+			timer.start(5, iFrames, 0);
 	}
 }
