@@ -16,16 +16,22 @@ import lime.app.Application;
 class PlayState extends FlxState
 {
 	var scaleFactor = 0.1;
+	var sky:FlxSprite; 
 	var Player:FlxSprite; // Defines the player
 	var enemy:FlxSprite; // Defines the enemy
 	var Ground:FlxSprite; // Defines the ground
 	var healthText:FlxText; // Defines the text
-	var timer:FlxTimer;
+	var timer:FlxTimer = new FlxTimer();
+
 
 
 	override function create()
 	{
 		super.create();
+		sky = new FlxSprite(AssetPaths.sky__png);
+		sky.pixelPerfectRender = true;
+		sky.pixelPerfectPosition = true;
+
 		// Player shit
 		Player = new FlxSprite(AssetPaths.holyshititshaxe__png); // Creates the player's sprite.
 		Player.x = FlxG.width / 2 - Player.width / 2; // Sets the player's x position. Makes it based off the player's sprite or something like that to make it always centered.
@@ -60,12 +66,13 @@ class PlayState extends FlxState
 		healthText.alignment = FlxTextAlign.CENTER;
 		healthText.screenCenter(FlxAxes.X);
 		healthText.y = 8;
-		var timer:FlxTimer = new FlxTimer();
+
 
 
 
 		// Pretty self-expanitory, you can figure it out
 		Music.playMusic();
+		add(sky);
 		add(Player);
 		add(Ground);
 		add(enemy);
@@ -79,10 +86,7 @@ class PlayState extends FlxState
 			DiscordClient.shutdown();
 		}, false, 100);
 	}
-	private function iFrames(_):Void
-	{
-		Player.health -= 1;
-	}
+
 
 	override public function update(elapsed:Float)
 	{
@@ -136,6 +140,11 @@ class PlayState extends FlxState
 			Player.health = 10;
 			Player.revive();
 		}
+
+		function iFrames(_):Void
+		{
+			Player.health -= 1;
+		}
 		
 
 
@@ -145,6 +154,6 @@ class PlayState extends FlxState
 			healthText.text = "DEAD!";
 
 		if (FlxG.overlap(Player, enemy))
-			timer.start(5, iFrames, 0);
+			timer.start(0.05, iFrames, 1);
 	}
 }
