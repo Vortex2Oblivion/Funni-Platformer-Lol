@@ -154,6 +154,6 @@ class PlayState extends FlxState
 			healthText.text = "DEAD!";
 
 		if (FlxG.overlap(Player, enemy))
-			timer.start(0.05, iFrames, 1);
+			timer.start(0.025, iFrames, 1);
 	}
 }
